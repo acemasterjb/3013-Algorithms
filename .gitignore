@@ -1,0 +1,6 @@
+# dev environment
+.vscode
+
+# compiled binaries
+solution
+main
