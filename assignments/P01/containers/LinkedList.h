@@ -17,8 +17,11 @@ class LinkedList {
         unsigned int _size;
         Node<ValueType> * _front;
         Node<ValueType> * _rear;
+        bool _isAscending;
 
-        void initialize();
+        void _initialize();
+    protected:
+        void sort();
     public:
         LinkedList();
         LinkedList(LinkedList & other);
@@ -33,11 +36,13 @@ class LinkedList {
         Node<ValueType> * front();
         Node<ValueType> * rear();
         int find(ValueType value);
+        bool getOrder();
 
         // Setters
         void setAt(int location, ValueType newValue);
         void setFront(ValueType newValue);
         void setRear(ValueType newValue);
+        void setOrder(bool isAscending);
 
         void pushAt(int location, ValueType value);
         void pushFront(ValueType value);

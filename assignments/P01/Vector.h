@@ -3,14 +3,12 @@
 
 #include <string>
 
+#include "containers/containers.h"
+
 using std::string;
 
-template <typename ElementType> class Vector
-{
+template <typename ElementType> class Vector : public LinkedList<ElementType> {
 private:
-    int size;
-    int front;
-    int rear;
 public:
     Vector();
     Vector(bool isAscending);

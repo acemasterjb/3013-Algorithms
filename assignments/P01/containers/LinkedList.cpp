@@ -1,21 +1,28 @@
 #include "LinkedList.h"
+#include "sorting.h"
 
 template <typename ValueType>
-void LinkedList<ValueType>::initialize() {
+void LinkedList<ValueType>::_initialize() {
     this->_size = 0;
     this->_front = nullptr;
     this->_rear = this->_front;
+    this->_isAscending = true;
+}
+
+template <typename ValueType>
+void LinkedList<ValueType>::sort() {
+    mergeSort(this->_front, this->_rear, this->_isAscending);
 }
 
 template <typename ValueType>
 LinkedList<ValueType>::LinkedList() {
-    initialize();
+    _initialize();
 }
 
 template <typename ValueType>
 LinkedList<ValueType>::LinkedList(LinkedList &other) {
-    initialize();
-    
+    _initialize();
+
     Node<ValueType> * currentNode = other.front();
     while (currentNode != nullptr) {
         this->_size++;
@@ -27,35 +34,35 @@ LinkedList<ValueType>::LinkedList(LinkedList &other) {
 
 template <typename ValueType>
 LinkedList<ValueType>::LinkedList(ValueType *otherBegin, ValueType *otherEnd) {
-    initialize();
+    _initialize();
 
     ValueType * currentValue = otherBegin;
     while (currentValue != otherEnd) {
         this->_size++;
         this->pushRear(*currentValue);
-        
+
         currentValue++;
     }
 }
 
 template <typename ValueType>
 LinkedList<ValueType>::LinkedList(ValueType initialValue) {
-    initialize();
+    _initialize();
 
-    this->setRear(initialValue);
+    this->setFront(initialValue);
 }
 
 template <typename ValueType>
 void LinkedList<ValueType>::print() {
-    Node<ValueType> * currentNode = this->front();
+    Node<ValueType> * currentNode = this->_front;
 
-    cout << "[ " << '\n';
+    cout << "[ " << "\n\t";
     while (currentNode != nullptr) {
         cout << currentNode->value() << ", ";
 
         currentNode = currentNode->next();
     }
-    cout << "]\n";
+    cout << "\n\t]";
 }
 
 template <typename ValueType>
@@ -75,7 +82,7 @@ Node<ValueType> *LinkedList<ValueType>::rear() {
 
 template <typename ValueType>
 int LinkedList<ValueType>::find(ValueType value) {
-    Node<ValueType> * currentNode = this->front();
+    Node<ValueType> * currentNode = this->_front;
     unsigned int index = 0;
 
     while (currentNode != nullptr) {
@@ -90,6 +97,11 @@ int LinkedList<ValueType>::find(ValueType value) {
 }
 
 template <typename ValueType>
+bool LinkedList<ValueType>::getOrder() {
+    return this->_isAscending;
+}
+
+template <typename ValueType>
 void LinkedList<ValueType>::setAt(int location, ValueType newValue) {
     if (location == 0){
         this->setFront(newValue);
@@ -99,7 +111,7 @@ void LinkedList<ValueType>::setAt(int location, ValueType newValue) {
         return;
     }
 
-    Node<ValueType> * currentNode = this->front();
+    Node<ValueType> * currentNode = this->_front;
     unsigned int index = 1;
 
     while (currentNode != nullptr) {
@@ -120,6 +132,11 @@ void LinkedList<ValueType>::setFront(ValueType value) {
 template <typename ValueType>
 void LinkedList<ValueType>::setRear(ValueType value) {
     this->_rear->setValue(value);
+}
+
+template <typename ValueType>
+void LinkedList<ValueType>::setOrder(bool isAscending) {
+    this->_isAscending = isAscending;
 }
 
 template <typename ValueType>
@@ -175,7 +192,7 @@ ValueType LinkedList<ValueType>::popAt(int location) {
         return this->popRear();
     
 
-    Node<ValueType> * prevNode = this->front();
+    Node<ValueType> * prevNode = this->_front;
     unsigned int index = 1;
 
     while (prevNode != nullptr) {

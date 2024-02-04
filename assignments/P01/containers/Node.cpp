@@ -1,6 +1,12 @@
 #include "Node.h"
 
 template <typename ValueType>
+Node<ValueType>::Node(Node<ValueType> * other) {
+    this->_value = other->value();
+    *(this->_next) = *(other->next());
+}
+
+template <typename ValueType>
 Node<ValueType>::Node(ValueType _value) {
     this->_value = _value;
     this->_next = nullptr;
@@ -12,7 +18,7 @@ ValueType Node<ValueType>::value() {
 }
 
 template <typename ValueType>
-const Node<ValueType> * Node<ValueType>::next() {
+Node<ValueType> * Node<ValueType>::next() {
     return _next;
 }
 
@@ -29,4 +35,6 @@ void Node<ValueType>::setNext(Node<ValueType> * next) {
 template <typename ValueType>
 Node<ValueType>::~Node() {
     delete _value;
+    if (this->_next != nullptr)
+        delete this->_next;    
 }
