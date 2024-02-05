@@ -1,14 +1,12 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-#include <algorithm>
 #include <iostream>
 #include <string>
 
 #include "Node.h"
 
 using std::string;
-using std::for_each;
 using std::cout;
 
 template <typename ValueType>
@@ -17,10 +15,10 @@ class LinkedList {
         unsigned int _size;
         Node<ValueType> * _front;
         Node<ValueType> * _rear;
-        bool _isAscending;
 
         void _initialize();
     protected:
+        bool _isAscending;
         void sort();
     public:
         LinkedList();
@@ -46,7 +44,9 @@ class LinkedList {
 
         void pushAt(int location, ValueType value);
         void pushFront(ValueType value);
+        void pushFront(LinkedList<ValueType> & other);
         void pushRear(ValueType value);
+        void pushRear(LinkedList<ValueType> & other);
 
         // Mutators
         ValueType popAt(int location);

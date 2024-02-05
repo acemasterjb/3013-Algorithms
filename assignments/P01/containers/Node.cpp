@@ -3,6 +3,9 @@
 template <typename ValueType>
 Node<ValueType>::Node(Node<ValueType> * other) {
     this->_value = other->value();
+    if (other->next() == nullptr)
+        return;
+    this->_next = new Node<ValueType>(ValueType());
     *(this->_next) = *(other->next());
 }
 
@@ -33,8 +36,4 @@ void Node<ValueType>::setNext(Node<ValueType> * next) {
 }
 
 template <typename ValueType>
-Node<ValueType>::~Node() {
-    delete _value;
-    if (this->_next != nullptr)
-        delete this->_next;    
-}
+Node<ValueType>::~Node() {}

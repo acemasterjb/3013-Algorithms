@@ -20,7 +20,7 @@ LinkedList<ValueType>::LinkedList() {
 }
 
 template <typename ValueType>
-LinkedList<ValueType>::LinkedList(LinkedList &other) {
+LinkedList<ValueType>::LinkedList(LinkedList & other) {
     _initialize();
 
     Node<ValueType> * currentNode = other.front();
@@ -33,7 +33,7 @@ LinkedList<ValueType>::LinkedList(LinkedList &other) {
 }
 
 template <typename ValueType>
-LinkedList<ValueType>::LinkedList(ValueType *otherBegin, ValueType *otherEnd) {
+LinkedList<ValueType>::LinkedList(ValueType * otherBegin, ValueType * otherEnd) {
     _initialize();
 
     ValueType * currentValue = otherBegin;
@@ -56,13 +56,13 @@ template <typename ValueType>
 void LinkedList<ValueType>::print() {
     Node<ValueType> * currentNode = this->_front;
 
-    cout << "[ " << "\n\t";
+    cout << "\n[ ";
     while (currentNode != nullptr) {
         cout << currentNode->value() << ", ";
 
         currentNode = currentNode->next();
     }
-    cout << "\n\t]";
+    cout << ']';
 }
 
 template <typename ValueType>
@@ -168,20 +168,51 @@ void LinkedList<ValueType>::pushAt(int location, ValueType value) {
 
 template <typename ValueType>
 void LinkedList<ValueType>::pushFront(ValueType value) {
-    Node<ValueType> * prevNode = this->_front;
-    Node<ValueType> * newNode = new Node<ValueType>(value);
-    Node<ValueType> * nextNode = prevNode->next();
+    if (this->_front == nullptr) {
+        this->_front = new Node<ValueType>(value);
+        this->_front->setNext(this->_rear);
+        return;
+    }
+    
+    Node<ValueType> * prevNode = new Node<ValueType>(this->_front);
+    this->_front = new Node<ValueType>(value);
+    this->_front->setNext(prevNode);
+}
 
-    prevNode->setNext(newNode);
-    newNode->setNext(nextNode);
+template <typename ValueType>
+void LinkedList<ValueType>::pushFront(LinkedList<ValueType> & other) {
+    Node<ValueType> * currentFront = new Node<ValueType>(this->_front);
+
+    this->_front = new Node<ValueType>(other.front());
+    Node<ValueType> * prevNode = this->_front;
+
+    while (prevNode->next() != nullptr) {
+        prevNode = prevNode->next();
+    }
+
+    prevNode->setNext(currentFront);
 }
 
 template <typename ValueType>
 void LinkedList<ValueType>::pushRear(ValueType value) {
-    Node<ValueType> * prevNode = this->_rear;
-    Node<ValueType> * newNode = new Node<ValueType>(value);
+    if (this->_front == nullptr) {
+        this->pushFront(value);
+        return;
+    }
 
-    prevNode->setNext(newNode);
+    Node<ValueType> * newNode = new Node<ValueType>(value);
+    Node<ValueType> * currentNode = this->_front;
+    while (currentNode->next() != nullptr)
+        currentNode = currentNode->next();
+
+    currentNode->setNext(newNode);
+    this->_rear = newNode; 
+}
+
+template <typename ValueType>
+void LinkedList<ValueType>::pushRear(LinkedList<ValueType> & other) {
+    this->_rear->setNext(other.front());
+    this->_rear = other.rear();
 }
 
 template <typename ValueType>
@@ -195,7 +226,7 @@ ValueType LinkedList<ValueType>::popAt(int location) {
     Node<ValueType> * prevNode = this->_front;
     unsigned int index = 1;
 
-    while (prevNode != nullptr) {
+    while (prevNode->next() != nullptr) {
         if (index++ == location) {
                 Node<ValueType> * nodeToPop = prevNode->next();
                 ValueType valueToReturn = nodeToPop->value();
@@ -217,7 +248,7 @@ ValueType LinkedList<ValueType>::popFront() {
     Node<ValueType> * nodeToPop = this->_front;
     ValueType valueToReturn = nodeToPop->value();
 
-    this->_front = nodeToPop->next();
+    this->_front = this->_front->next();
     delete nodeToPop;
     return valueToReturn;
 }
@@ -226,7 +257,7 @@ template <typename ValueType>
 ValueType LinkedList<ValueType>::popRear() {
     Node<ValueType> * prevNode = this->_front;
 
-    while (prevNode->next() != this->_rear)
+    while (prevNode->next() != nullptr)
         prevNode = prevNode->next();
 
     ValueType valueToReturn = this->_rear->value();
@@ -240,8 +271,11 @@ ValueType LinkedList<ValueType>::popRear() {
 template <typename ValueType>
 LinkedList<ValueType>::~LinkedList() {
     Node<ValueType> * currentNode = this->_front;
+    Node<ValueType> * nextNode = nullptr;
     for (unsigned int i = 0; i < _size; i++) {
+        nextNode = currentNode->next();
         delete currentNode;
-        currentNode = currentNode->next();
+        currentNode = nextNode;
     }
+    delete currentNode;
 }
