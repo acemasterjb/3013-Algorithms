@@ -13,25 +13,27 @@ void testExtendVectorRear(Vector<int> * filledVector, Vector<int> * vectorToBeFi
 void testPop(Vector<int> * filledVector, bool popFront);
 void testPopAt(Vector<int> * filledVector);
 void testFind(Vector<int> * filledVector);
-Vector<int> * testCopy(Vector<int> * filledVector);
-void testExtendVectorFront(Vector<int> * filledVector, Vector<int> * vectorToBeFilled);
+void testCopyAndExtend(Vector<int> * leftVector, Vector<int> * rightVector);
+void testFromInput(Vector<int> * rightVector);
 
 int main(){
-    Vector<int> * toBeFilledFromScratch = testFromEmptyVector();
-    Vector<int> * toBeFilledFromArray = testFromArray();
-    testPushMoreFromArray(toBeFilledFromArray);
-    testExtendVectorRear(toBeFilledFromScratch, toBeFilledFromArray);
-    testPop(toBeFilledFromScratch, true);
-    testPop(toBeFilledFromScratch, false);
-    testPopAt(toBeFilledFromArray);
-    testFind(toBeFilledFromArray);
-    testCopy(toBeFilledFromScratch);
+    Vector<int> * filledFromScratch = testFromEmptyVector();
+    Vector<int> * filledFromArray = testFromArray();
+    testPushMoreFromArray(filledFromArray);
+    testExtendVectorRear(filledFromScratch, filledFromArray);
+    testPop(filledFromScratch, true);
+    testPop(filledFromScratch, false);
+    testPopAt(filledFromArray);
+    testFind(filledFromArray);
+    testCopyAndExtend(filledFromScratch, filledFromArray);
+    testFromInput(filledFromScratch);
 
-    delete toBeFilledFromArray;
-    delete toBeFilledFromScratch;
+    delete filledFromArray;
+    delete filledFromScratch;
 }
 
 Vector<int> * testFromEmptyVector() {
+    cout << "1️⃣. Fill Vector from the front and back";
     Vector<int> * toBeFilled = new Vector<int>();
     vector<int> filler = { 18, 20, 25, 18, 20, 25 };
 
@@ -46,6 +48,7 @@ Vector<int> * testFromEmptyVector() {
 }
 
 Vector<int> * testFromArray() {
+    cout << "\n\n2️⃣. Fill Vector from an init'd array";
     int filler[] = { 11, 25, 33, 47, 51 };
     Vector<int> * toBeInitialized = new Vector<int>(filler + 0, filler + 5, true);
 
@@ -54,6 +57,7 @@ Vector<int> * testFromArray() {
 }
 
 void testPushMoreFromArray(Vector<int> * filledVector) {
+    cout << "\n\n3️⃣. Push more stuff on a Vector, front and back";
     filledVector->pushFront(9);
     filledVector->pushRear(63);
 
@@ -61,12 +65,14 @@ void testPushMoreFromArray(Vector<int> * filledVector) {
 }
 
 void testExtendVectorRear(Vector<int> * filledVector, Vector<int> * vectorToBeFilled) {
+    cout << "\n\n4️⃣. Fill Vector from the front and back";
     filledVector->pushRear(*vectorToBeFilled);    
 
     filledVector->print();
 }
 
 void testPop(Vector<int> * filledVector, bool popFront) {
+    cout << "\n\n5️⃣. Pop stuff from the front/back";
     int x = 0;
     for (unsigned int i = 0; i < 3; i++) {
         if (popFront)
@@ -80,6 +86,7 @@ void testPop(Vector<int> * filledVector, bool popFront) {
 }
 
 void testPopAt(Vector<int> * filledVector) {
+    cout << "\n\n7️⃣. Pop at a given location (3)";
     int x = 0;
     x = filledVector->popAt(3);
 
@@ -88,6 +95,7 @@ void testPopAt(Vector<int> * filledVector) {
 }
 
 void testFind(Vector<int> *filledVector) {
+    cout << "\n\n8️⃣. Find an existing and non existing number";
     int x = 0;
     x = filledVector->find(51);
     cout << "\n`51` was found at: " << x;
@@ -97,15 +105,22 @@ void testFind(Vector<int> *filledVector) {
         << ((x > -1) ? "\n99 was found at " : "\n 99 is not in this Vector");
 }
 
-Vector<int> * testCopy(Vector<int> * filledVector) {
-    Vector<int> copiedVector(*filledVector);
+void testCopyAndExtend(Vector<int> * leftVector, Vector<int> * rightVector) {
+    cout << "\n\n9️⃣. Fill Vector from the front and back";
+    Vector<int> copiedVector(*leftVector);
     copiedVector.print();
 
-    return &copiedVector;
+    copiedVector.pushFront(*rightVector);
+    copiedVector.print();
 }
 
-void testExtendVectorFront(Vector<int> * filledVector) {
-    filledVector->pushFront(*filledVector); 
+void testFromInput(Vector<int> * rightVector) {
+    cout << "\n\n🔟. Fill Vector from an input file";
+    string inputFileName = "input";
+    Vector<int> filledFromInput(inputFileName, true);
 
-    filledVector->print();
+    Vector<int> copiedVector(*rightVector);
+
+    filledFromInput.pushRear(copiedVector);
+    filledFromInput.print();
 }
