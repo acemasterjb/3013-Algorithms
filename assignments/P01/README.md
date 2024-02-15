@@ -6,6 +6,10 @@ The [`Vector`](./Vector.h) class uses a [`LinkedList`](./containers/LinkedList.h
 
 This `Vector` class was written to support pushing and popping from both ends and initialization from arrays, input files and other Vectors.
 
+This `Vector` class also supports "pushing in order" which means that elements can be pushed and then sorted.
+
+The [`solution.cpp`](./solution.cpp) file contains logic to test the various operations of this `Vector` class.
+
 Input files need to consist of lines where each line contains one element to be pushed onto the Vector. E.g. for initializing a `Vector` of `int`s each line in the input file needs to be an integer.
 
 ## Instructions

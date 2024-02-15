@@ -3,10 +3,11 @@
 template <typename ValueType>
 Node<ValueType>::Node(Node<ValueType> * other) {
     this->_value = other->value();
-    if (other->next() == nullptr)
+    if (other->next() == nullptr) {
+        this->_next = nullptr;
         return;
-    this->_next = new Node<ValueType>(ValueType());
-    *(this->_next) = *(other->next());
+    }
+    this->_next = new Node<ValueType>(other->next());
 }
 
 template <typename ValueType>

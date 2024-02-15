@@ -47,6 +47,7 @@ class LinkedList {
         void pushFront(LinkedList<ValueType> & other);
         void pushRear(ValueType value);
         void pushRear(LinkedList<ValueType> & other);
+        void inOrderPush(ValueType value);
 
         // Mutators
         ValueType popAt(int location);

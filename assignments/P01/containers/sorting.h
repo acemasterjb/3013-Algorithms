@@ -2,7 +2,7 @@
 
 template <typename ValueType>
 bool getOrder(Node<ValueType> * leftOperand, Node<ValueType> * rightOperand, bool isAscending) {
-    if (isAscending)
+    if (!isAscending)
         return leftOperand->value() > rightOperand->value();
     return leftOperand->value() < rightOperand->value();    
 }
@@ -34,29 +34,35 @@ Node<ValueType> * merge(
 }
 
 template <typename ValueType>
-Node<ValueType> * getRightPartition(Node<ValueType> * front, Node<ValueType> * rear) {
-    Node<ValueType> * currentNode = front;
-    Node<ValueType> * checkpoints = nullptr;
-    unsigned int checkpointSize = 0;
+void getPartitions(Node<ValueType> * input, Node<ValueType> ** leftPartition, Node<ValueType> ** rightPartition){
+    Node<ValueType> * fast = input;
+    Node<ValueType> * slow = input;
+    Node<ValueType> * leftPartitionRear = nullptr;
 
-    while (currentNode != rear->next()) {
-        (checkpoints + checkpointSize++) = currentNode;
-        currentNode = currentNode->next();
+    while (fast != nullptr && fast->next() != nullptr) {
+        fast = fast->next()->next();
+        leftPartitionRear = slow;
+        slow = slow->next();
     }
 
-    return (checkpoints + checkpointSize / 2);
+    *leftPartition = input;
+    *rightPartition = slow;
+    if (leftPartitionRear != nullptr)
+        leftPartitionRear->setNext(nullptr);
 }
 
 template <typename ValueType>
-void mergeSort(Node<ValueType> * front, Node<ValueType> * rear, bool isAscending) {
-    if (front == nullptr || front->next() == nullptr)
+void mergeSort(Node<ValueType> ** front, bool isAscending) {
+    if (*front == nullptr || (*front)->next() == nullptr)
         return;
 
-    Node<ValueType> * leftPartitionRear =  getRightPartition(front, rear);
-    Node<ValueType> * rightPartitionFront = leftPartitionRear->next();
+    Node<ValueType> * leftPartitionFront;
+    Node<ValueType> * rightPartitionFront;
 
-    mergeSort(front, leftPartitionRear, isAscending);
-    mergeSort(rightPartitionFront, rear, isAscending);
+    getPartitions(*front, &leftPartitionFront, &rightPartitionFront);
 
-    front = merge(front, rightPartitionFront, isAscending);
+    mergeSort(&leftPartitionFront, isAscending);
+    mergeSort(&rightPartitionFront, isAscending);
+
+    *front = merge(leftPartitionFront, rightPartitionFront, isAscending);
 }

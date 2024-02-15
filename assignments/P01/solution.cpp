@@ -15,6 +15,7 @@ void testPopAt(Vector<int> * filledVector);
 void testFind(Vector<int> * filledVector);
 void testCopyAndExtend(Vector<int> * leftVector, Vector<int> * rightVector);
 void testFromInput(Vector<int> * rightVector);
+void testInOrderPush(Vector<int> * filledVector);
 
 int main(){
     Vector<int> * filledFromScratch = testFromEmptyVector();
@@ -27,6 +28,7 @@ int main(){
     testFind(filledFromArray);
     testCopyAndExtend(filledFromScratch, filledFromArray);
     testFromInput(filledFromScratch);
+    testInOrderPush(filledFromArray);
 
     delete filledFromArray;
     delete filledFromScratch;
@@ -123,4 +125,11 @@ void testFromInput(Vector<int> * rightVector) {
 
     filledFromInput.pushRear(copiedVector);
     filledFromInput.print();
+}
+
+void testInOrderPush(Vector<int> * filledVector) {
+    cout << "\n\n1️⃣1️⃣. Push an element in order";
+    filledVector->inOrderPush(201);
+    filledVector->inOrderPush(21);
+    filledVector->print();
 }
