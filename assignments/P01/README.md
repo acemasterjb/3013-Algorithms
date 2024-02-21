@@ -35,3 +35,15 @@ $ ./solution
 ```
 
 That is, after compiling `solution.cpp` you should get a `solution` executable file in the same directory `solution.cpp` is stored. You can then run this command `./solution` to output the various `Vector` tests contained in `solution.cpp`.
+
+## Sorting Algorithm
+
+Merge sort was selected as the sorting algorithm based on some research on what may be the best sorting algorithm for sorting an array.
+
+The recursive algorithm simply partitions a given linked list into two and splits those partitions until one node is left in the partition.
+
+Then the merging step merges the two last partitions on the runtime stake. Based on the definition of this algorithm, this merged sublist is sorted.
+
+Therefore the sublists from the runtime stack are always sorted. When all recursive calls to the merge sort algorithm are resolved the inputted linked list is guaranteed to be sorted.
+
+GPT-4 was consulted for a solution to partitioning linked lists.
