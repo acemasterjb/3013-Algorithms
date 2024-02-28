@@ -41,9 +41,10 @@ int main() {
 
         string prevWord = word;
         bool shouldSkip = buildWord(typed_char, word);
-        if (shouldSkip || word == prevWord)
+        if (shouldSkip || word == prevWord) {
+            _timer.end();
             continue;
-
+        }
 
         if(prevWord.substr(0, 1) != word.substr(0, 1))
             cacheDictionary(dictionary, subDictionary, word);
@@ -87,18 +88,16 @@ bool buildWord(char typed_char, string & word) {
     // Deletes last letter from "word" if backspace pressed
     if ((int)typed_char == Key::BACKSPACE) {
         if (word.size() > 0)
-            word = word.substr(0, word.size() - 1);
+            word.erase(word.end() - 1);
     } else {
         if (!isalpha(typed_char)) {
             cout << termcolor::on_bright_red << termcolor::bright_white
                     << "Letters only!" << termcolor::reset << '\n';
-            sleep(1);
             return true;
         }
 
-        if (isupper((int)typed_char)) {
+        if (isupper((int)typed_char))
             typed_char += 32;
-        }
         word += typed_char;
     }
     return false;
@@ -108,7 +107,7 @@ void cacheDictionary(json & dictionary, json & dictionaryCache, string word) {
     dictionaryCache.clear();
 
     char nextLetter = *(&word[0]) + 1;
-    string nextLetterStr;
+    string nextLetterStr = "";
     nextLetterStr.push_back(nextLetter);
 
     auto start = dictionary.find(word.substr(0, 1));
@@ -125,9 +124,6 @@ pair<vector<string>, int> partialMatch(json dictionary, string substring) {
     size_t found_position;
     int substring_size = substring.size();
 
-    if (substring.size() == 0)
-        return make_pair(matches, 0);
-
     vector<string> dictionaryMatches = getDictionaryMatches(dictionary, substring);
     int queryResultsSize = dictionaryMatches.size();
     int matchesSize = queryResultsSize < 10 ? queryResultsSize : 10;
@@ -142,15 +138,15 @@ pair<vector<string>, int> partialMatch(json dictionary, string substring) {
     return make_pair(matches, queryResultsSize);
 }
 
-vector<string> getDictionaryMatches(json myJson, string partialKey) {
+vector<string> getDictionaryMatches(json dictionary, string partialKey) {
     vector<string> matches;
 
     // Iterate over all key-value pairs
-    for (auto & element : myJson.items()) {
+    for (auto & element : dictionary.items()) {
         string key = element.key();
 
         // Check if the key contains the partialKey substring
-        if (key.substr(0, partialKey.size()).find(partialKey) != string::npos)
+        if (key.substr(0, partialKey.size()) == partialKey)
             matches.push_back(key);
     }
 
