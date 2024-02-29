@@ -40,8 +40,8 @@ int main() {
         _timer.start();
 
         string prevWord = word;
-        bool shouldSkip = buildWord(typed_char, word);
-        if (shouldSkip || word == prevWord) {
+        bool errorOccurred = buildWord(typed_char, word);
+        if (errorOccurred || word == prevWord) {
             _timer.end();
             continue;
         }
@@ -63,9 +63,7 @@ int main() {
                  << word << termcolor::reset << "\n\n";
 
             printStats(numOfQueryResults, _timer.NanoSeconds());
-
             colorResults(matches, word);
-            
         }
     }
 }
@@ -92,7 +90,7 @@ bool buildWord(char typed_char, string & word) {
     } else {
         if (!isalpha(typed_char)) {
             cout << termcolor::on_bright_red << termcolor::bright_white
-                    << "Letters only!" << termcolor::reset << '\n';
+                    << "\nLetters only!" << termcolor::reset << '\n';
             return true;
         }
 
@@ -115,11 +113,7 @@ void cacheDictionary(json & dictionary, json & dictionaryCache, string word) {
     dictionaryCache = json(start, end);
 }
 
-/// @brief Finds partial matches in an array of strings
-/// @param words array to search
-/// @param substring substring to search for in each word
-/// @return all the matched words from substring
-pair<vector<string>, int> partialMatch(json dictionary, string substring) {
+pair<vector<string>, int> partialMatch(json & dictionary, string substring) {
     vector<string> matches;
     size_t found_position;
     int substring_size = substring.size();
@@ -129,7 +123,8 @@ pair<vector<string>, int> partialMatch(json dictionary, string substring) {
     int matchesSize = queryResultsSize < 10 ? queryResultsSize : 10;
 
     for (int i = 0; i < matchesSize; i++) {
-        found_position = dictionaryMatches[i].substr(0, substring_size).find(substring);
+        found_position
+            = dictionaryMatches[i].substr(0, substring_size).find(substring);
 
         if (found_position != string::npos)
             matches.push_back(dictionaryMatches[i]);
@@ -138,14 +133,12 @@ pair<vector<string>, int> partialMatch(json dictionary, string substring) {
     return make_pair(matches, queryResultsSize);
 }
 
-vector<string> getDictionaryMatches(json dictionary, string partialKey) {
+vector<string> getDictionaryMatches(json & dictionary, string partialKey) {
     vector<string> matches;
 
-    // Iterate over all key-value pairs
     for (auto & element : dictionary.items()) {
         string key = element.key();
 
-        // Check if the key contains the partialKey substring
         if (key.substr(0, partialKey.size()) == partialKey)
             matches.push_back(key);
     }
@@ -167,27 +160,12 @@ void printStats(int numberOfQueryResults, int nanoseconds) {
 }
 
 void colorResults(vector<string> & matches, string word) {
-    int substring_location;
-    
-    for (int i = 0; i < matches.size(); i++) {
-        // find the substring in the word
-        substring_location = matches[i].find(word);
-        // if its found
-        if (substring_location != string::npos) {
-            // print one letter at a time turning on red or green
-            //  depending on if the matching subtring is being printed
-            cout << termcolor::bold << "\"";
-            for (int j = 0; j < matches[i].size(); j++) {
-                // if we are printing the substring turn it red
-                if (j >= substring_location && j <= substring_location + word.size() - 1) {
-                    cout << termcolor::red;
-                } else {
-                    cout << termcolor::blue;
-                }
-                cout << matches[i][j];
-            }
-            cout << termcolor::blue;
-        }
-        cout << "\"" << " ";
+    for (string match : matches) {
+        cout << termcolor::bold << "\"";
+        for (char letter : match.substr(0, word.size()))
+            cout << termcolor::red << letter;
+        for (char letter : match.substr(word.size(), match.size()))
+            cout << termcolor::blue << letter;
+        cout << termcolor::blue << "\"" << " ";
     }
 }

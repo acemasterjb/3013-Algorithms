@@ -18,11 +18,13 @@ void printStats(int numberOfQueryResults, int nanoseconds);
 /// @param dictionary dictionary containing possible matches
 /// @param partialKey key criteria for retrieving matches
 /// @return all dictionary entries which fit the given key criteria
+vector<string> getDictionaryMatches(json & dictionary, string partialKey);
 
 /// @brief Finds partial matches in an array of strings
 /// @param words array to search
 /// @param substring substring to search for in each word
 /// @return all the matched words from substring
+pair<vector<string>, int> partialMatch(json & dictionary, string substring);
 
 /// @brief cache a portion of a given `dictionary` to the given cache
 /// @details cache is built from the first letter of the given `word`
