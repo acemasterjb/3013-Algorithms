@@ -1,91 +1,36 @@
-## Linear Search - Using Json and Getch
-#### Due: March 6<sup>th</sup> @ 2:00
+# Program 2 - Json Linear Search
 
-### Get Running
+This program grabs words from a dictionary `.json` file and uses it to predict the text a user types in their console.
 
-Get a combination of [main.cpp](./main.cpp) running but with it using a json object that loads all the dictionary words from [dictionary.json](./data/dictionary.json). Currently [main.cpp](./main.cpp) loads [animals_small.txt](./data/animals_small.txt) as an example on how the program works. It will show suggested words after you type a character into the terminal. It matches to any location within the word: from, middle, end. 
+It utilises [N_Lohmann's json library](https://github.com/nlohmann/json) to deserialize the json file into a data structure that then gets its keys extracted. These keys make up the dictionary's entries.
 
-The program [loadJsonEx.cpp](./loadJsonEx.cpp) does load the [dictionary.json](./data/dictionary.json) into a searchable data structure, and searches for the word `axal` by default. 
+When a user types text in the console this program creates a subset of the loaded dictionary and prints out the top 10 entries from the dictionary as well as the total number of results found.
 
-This assignment will be a simple example of doing a linear search in a json object, but when it finds partial matches of a substring in a word, it prints it out (with color!).
+Other statistics are shown, including loading time of the dictionary and time to find the predicted text results.
 
+## Instructions
 
-### Files
+1. Compile the `main.cpp` source file ([Unix and Windows Tutorial](https://www.codecademy.com/article/cpp-compile-execute-locally), or run [`main.cpp`](./main.cpp) in [replit](https://replit.com/)).
+2. Run the compiled `main` program.
 
-| File               | Description                                        | Location                                       |
-| :----------------- | :------------------------------------------------- | :--------------------------------------------- |
-| `animal_names.txt` | Small list of animals (good test file)             | [data/animals.txt](./data/animals.txt)         |
-| `dictionary.txt`   | Words only                                         | [data/dictionary.txt](./data/dictionary.txt)   |
-| `dictionary.json`  | Words + definitions                                | [data/dictionary.json](./data/dictionary.json) |
-| `main.cpp`         | Example driver that reads in words and uses getch. | [./main.cpp](./main.cpp)                       |
-| `my_getch.cpp`     | Get character, without printing it .               | [./mygetch.hpp](./mygetch.hpp)                 |
-| `timer.hpp`        | Timer helper class                                 | [./timer.hpp](./timer.hpp)                     |
-| `termcolor.hpp`    | Class to color text                                | [termcolor.hpp](termcolor.hpp)                 |
+e.g.
 
-## Background
+```console
+# terminal/cmd
 
-### JSON
+$ ./main
+GETCH WORD LOOKUP
 
-Read [this about json](../../Lectures/LectureMaterials/16-Json/README.md) from the [Lecture Materials](../../Lectures/LectureMaterials/README.md) section.
+Load Time for data file:
+1  Seconds
 
-### Timing
+1853  MilliSeconds
 
-- Timing becomes important when you want to benchmark how fast code is running.
-- There are many things that effect run times, so you should try to run your code with the same conditions (like the same machine) as much as possible.
-- The library here will give us milli-second granularity. So go look at the example code.
-- Check [timer.hpp](./heades/timer.hpp) out in the header folder. 
-- The example program[main.cpp](main.cpp) shows some usage as well.
+1853433369  NanoSeconds
 
-### Getching :)
-
-- Getch: a word that implies the capture of keyboard input, with hitting the enter key and optionally not even reflecting on the console that anything happened.
-- This is obvious with games, since not all key strokes imply an attempt to type, they may be trying to control movement or communication in other ways.
-- The function here provides a `getch` function for both windows or linux / osx.  
-- See example [main.cpp](main.cpp) here in this folder. It just needs a little tweaking.
-
-## Assignment
-
-### Requirements
-- Write a program that will combine the two files: `main.cpp` and `loadJsonEx.cpp` so that `main.cpp` uses the dictionary to look for partial matches in. 
-- Time how long it takes to load the data into the json object initially. 
-- After your dictionary is loaded, we are going to perform "autosuggestions" when a user types characters at the console.
-- Suggestions will start after 1 character is typed, however only the top 10 suggestions will be printed along with the total number of matching words (example output below).
-- Matching suggestions will ONLY be words that match the substring starting from position zero. For example: `cat` would match `cat`, `caterpillar`, and `cattle`. But **NOT** `wildcat`.
-- As typing, the time it takes to find suggestions will be displayed in seconds. Like: `0.0000554310000000019` seconds.
-- In addition I have included a file to help color text. Docs are here: https://termcolor.readthedocs.io/ but I included some examples in [main.cpp](main.cpp).
-
-
-#### Output Example
-
-- User types the word `ste` 
-- Below the word the number of words found and the amount of time in seconds will be printed
-- Only print out the first 10 words of the matching words
-
-
-```
-ste
-
-62 words found in 0.013 seconds
-
-stead steadfast steadfastly steadfastness steadied steadier steadies steadiest steadily steadiness
-
+Type a word to begin...
 ```
 
+That is, after compiling `main.cpp` you should get a `main` executable file in the same directory `main.cpp` is stored.
 
-- User types the word `steel` 
-
-```
-steel
-
-18 words found in 0.003 seconds
-
-steel steele steeled steelers steeles steelhead steelie steelier steelies steeliness 
-
-```
-
-### Deliverables
-
-- Create a folder called **P02** in your assignments folder. 
-- **ALL** files used in this project should be in that folder.
-- Any source code YOU wrote (commented as directed [here](../../Resources/01-Comments/README.md))
-- 4 screen shots showing your program searching for words (example output above)
+You can then run this command `./main` to run the predicted text program contained in `main.cpp`.

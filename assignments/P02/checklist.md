@@ -1,10 +1,10 @@
-## P02 Assessment
+# P02 Assessment
 
 _______ Does program run? ________ Does generate output?
 
 If both items above are YES, continue on. Otherwise program score = 0;
 
-### P02 Checklist
+## P02 Checklist
 
 |    #    | Item                                                  |   Value | Earned |
 | :-----: | ----------------------------------------------------- | ------: | -----: |
@@ -32,7 +32,8 @@ If both items above are YES, continue on. Otherwise program score = 0;
 | Totals: |                                                       | **100** |        |
 
 Example (doesn't have to be exact, but similar especially order from top to bottom)
-```
+
+```bash
 input: chu
 
 117 words found in 0.023 seconds

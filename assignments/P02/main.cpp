@@ -1,5 +1,8 @@
 /**
- * This program uses a "getch" function which means "get character".
+ * @short Json Linear Search
+ * @author Jamil Bousquet | jcbousquet0923@my.msutexas.edu
+ * @date 02/28/24
+ * @details This program uses a "getch" function which means "get character".
  * However, getch does not print the character to the terminal, it
  * lets you decide what to do based on what character you are pressing.
  */
@@ -83,7 +86,6 @@ json loadData(string pathName, Logger<string> & _logger) {
 
 bool buildWord(char typed_char, string & word) {
     
-    // Deletes last letter from "word" if backspace pressed
     if ((int)typed_char == Key::BACKSPACE) {
         if (word.size() > 0)
             word.erase(word.end() - 1);

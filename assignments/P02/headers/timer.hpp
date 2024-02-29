@@ -44,12 +44,10 @@ public:
     }
 
     void start() {
-        //start = Time::now();
         _start = chrono::steady_clock::now();
     }
 
     void end() {
-        //end = Time::now();
         _end = chrono::steady_clock::now();
     }
 
