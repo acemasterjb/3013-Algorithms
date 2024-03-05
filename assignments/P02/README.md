@@ -1,12 +1,11 @@
 # Program 2 - Json Linear Search
 
 This program grabs words from a dictionary `.json` file and uses it to predict the text a user types in their console.
-
-It utilises [N_Lohmann's json library](https://github.com/nlohmann/json) to deserialize the json file into a data structure that then gets its keys extracted. These keys make up the dictionary's entries.
+It utilizes [N_Lohmann's](https://github.com/nlohmann/json) json library](https://github.com/nlohmann/json) to deserialize the json file into a data structure that then gets its keys extracted. These keys make up the dictionary's entries.
 
 When a user types text in the console this program creates a subset of the loaded dictionary and prints out the top 10 entries from the dictionary as well as the total number of results found.
 
-Other statistics are shown, including loading time of the dictionary and time to find the predicted text results.
+Other statistics are shown, including the loading time of the dictionary and the time to find the predicted text results.
 
 ## Instructions
 
