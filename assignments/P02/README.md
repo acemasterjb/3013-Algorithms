@@ -21,11 +21,11 @@ $ ./main
 GETCH WORD LOOKUP
 
 Load Time for data file:
-1  Seconds
+1  seconds
 
-1853  MilliSeconds
+1853  milliSeconds
 
-1853433369  NanoSeconds
+1853433369  nanoSeconds
 
 Type a word to begin...
 ```

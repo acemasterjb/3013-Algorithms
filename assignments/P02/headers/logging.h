@@ -65,6 +65,7 @@ template <typename MessageType>
 Logger<MessageType>::~Logger() {
 }
 
+#endif
 
 void printFormat(string title="", string line="") {
     cout
@@ -76,9 +77,9 @@ void printLoadTime(Timer & _timer) {
     printFormat("GETCH WORD LOOKUP");
 
     vector<pair<string, int>> times = {
-        make_pair("  ", _timer.Seconds()),
-        make_pair("  Milli", _timer.MilliSeconds()),
-        make_pair("  Nano", _timer.NanoSeconds()),
+        make_pair("  ", _timer.seconds()),
+        make_pair("  Milli", _timer.milliSeconds()),
+        make_pair("  Nano", _timer.nanoSeconds()),
     };
 
     // print out how long it took to load the animals file
@@ -87,12 +88,8 @@ void printLoadTime(Timer & _timer) {
     for (pair<string, int> timeUnit : times) {
         cout << termcolor::bold << termcolor::green
              << timeUnit.second << termcolor::yellow << timeUnit.first
-             << "Seconds" << termcolor::reset << "\n\n";
+             << "seconds" << termcolor::reset << "\n\n";
     }
 
     printFormat("Type a word to begin...");
 }
-
-
-#endif
-

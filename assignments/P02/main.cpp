@@ -44,10 +44,8 @@ int main() {
 
         string prevWord = word;
         bool errorOccurred = buildWord(typed_char, word);
-        if (errorOccurred || word == prevWord) {
-            _timer.end();
+        if (errorOccurred || word == prevWord)
             continue;
-        }
 
         if(prevWord.substr(0, 1) != word.substr(0, 1))
             cacheDictionary(dictionary, subDictionary, word);
@@ -65,7 +63,7 @@ int main() {
             cout << termcolor::reset << termcolor::red
                  << word << termcolor::reset << "\n\n";
 
-            printStats(numOfQueryResults, _timer.NanoSeconds());
+            printStats(numOfQueryResults, _timer.nanoSeconds());
             colorResults(matches, word);
         }
     }
@@ -126,7 +124,9 @@ pair<vector<string>, int> partialMatch(json & dictionary, string substring) {
 
     for (int i = 0; i < matchesSize; i++) {
         found_position
-            = dictionaryMatches[i].substr(0, substring_size).find(substring);
+            = dictionaryMatches[i]
+                .substr(0, substring_size)
+                .find(substring);
 
         if (found_position != string::npos)
             matches.push_back(dictionaryMatches[i]);

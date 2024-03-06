@@ -21,8 +21,8 @@
 //
 //      T.end();
 //
-//      double s = T.Seconds();
-//      long m = T.MilliSeconds();
+//      double s = T.seconds();
+//      long m = T.milliSeconds();
 //
 //      cout <<s << " seconds" <<endl;
 //      cout <<m << " milli" <<endl;
@@ -51,15 +51,15 @@ public:
         _end = chrono::steady_clock::now();
     }
 
-    int NanoSeconds() {
+    int nanoSeconds() {
         return chrono::duration_cast<chrono::nanoseconds>(_end - _start).count();
     }
 
-    int Seconds() {
+    int seconds() {
         return chrono::duration_cast<chrono::seconds>(_end - _start).count();
     }
 
-    int MilliSeconds() {
+    int milliSeconds() {
         return chrono::duration_cast<chrono::milliseconds>(_end - _start).count();
     }
 };
