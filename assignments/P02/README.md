@@ -7,6 +7,15 @@ When a user types text in the console this program creates a subset of the loade
 
 Other statistics are shown, including the loading time of the dictionary and the time to find the predicted text results.
 
+## Directory
+
+|Directory|Description|
+|---|---|
+|[data](./data/)|Contains dictionary `.json`; hosted on LFS remotely|
+|[headers](./headers/)|Contains local and remote libs used for this|
+|[screenshots](./screenshots/)|Contains screenshots of the program running|
+|[main.cpp](./main.cpp)|Contains logic for testing this program|
+
 ## Instructions
 
 1. Compile the `main.cpp` source file ([Unix and Windows Tutorial](https://www.codecademy.com/article/cpp-compile-execute-locally), or run [`main.cpp`](./main.cpp) in [replit](https://replit.com/)).
