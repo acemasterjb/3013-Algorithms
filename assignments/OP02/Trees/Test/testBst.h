@@ -21,6 +21,7 @@ class TestBinarySearchTree : public BinarySearchTree<ValueType> {
 
         int operationRuntime();
 
+        Node <ValueType> * root();
         int heightOf(Node<ValueType> * node);
         int getBalanceFactor(Node<ValueType> * node);
         Node <ValueType> * search(ValueType value);

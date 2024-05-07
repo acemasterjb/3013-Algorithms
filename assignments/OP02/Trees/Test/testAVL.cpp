@@ -16,7 +16,13 @@ int TestAVLTree<ValueType>::operationRuntime() {
 }
 
 template <typename ValueType>
-int TestAVLTree<ValueType>::heightOf(Node<ValueType> *node) {
+Node<ValueType> *TestAVLTree<ValueType>::root() {
+    return AVLTree<ValueType>::root();
+}
+
+template <typename ValueType>
+int TestAVLTree<ValueType>::heightOf(Node<ValueType> *node)
+{
     return AVLTree<ValueType>::heightOf(node);
 }
 

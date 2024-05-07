@@ -1,4 +1,5 @@
 #include "./testBst.h"
+#include "testBst.h"
 // #include "testBst.h"
 
 template <typename ValueType>
@@ -13,6 +14,11 @@ TestBinarySearchTree<ValueType>::TestBinarySearchTree(ValueType rootValue) : Bin
 template <typename ValueType>
 int TestBinarySearchTree<ValueType>::operationRuntime() {
     return this->_opRuntime;
+}
+
+template <typename ValueType>
+Node<ValueType> *TestBinarySearchTree<ValueType>::root() {
+    return BinarySearchTree<ValueType>::root();
 }
 
 template <typename ValueType>
