@@ -149,6 +149,6 @@ void AVLTree<ValueType>::deleteBranch(Node<ValueType> *node) {
 template <typename ValueType>
 AVLTree<ValueType>::~AVLTree()
 {
-    while (this->_root != nullptr)
-        this->_root = _deleteBranch(this->_root);
+    // while (this->_root != nullptr)
+    //     this->_root = _deleteBranch(this->_root);
 }

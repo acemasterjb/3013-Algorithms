@@ -13,8 +13,6 @@ using std::pair;
 using std::vector;
 using uint = unsigned int;
 
-int main();
-
 struct TreeStats {
     int balanceFactor;
     int height;

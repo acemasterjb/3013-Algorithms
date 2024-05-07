@@ -188,6 +188,6 @@ void BinarySearchTree<ValueType>::printFrom(Node<ValueType> *node) {
 
 template <typename ValueType>
 BinarySearchTree<ValueType>::~BinarySearchTree() {
-    while (_root != nullptr)
-        _deleteBranch(_root);
+    // while (_root != nullptr)
+    //     _deleteBranch(_root);
 }
